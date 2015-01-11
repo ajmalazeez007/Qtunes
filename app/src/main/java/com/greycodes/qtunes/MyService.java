@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -46,7 +45,6 @@ public class MyService extends Service {
      //  url="https://devru-raaga-v1.p.mashape.com/json/search-v2.asp?c=500&l=H&p=1&q=Rangoli&mashape-key=STPFzI5Z96msh8BRoQDf1SutiDeap1sKZvUjsnkKkgZee22lcJ";
         new FindSongId().execute(url);
         url=url.replaceAll(" ", "%20");
-        Toast.makeText(getApplicationContext(),s1,Toast.LENGTH_LONG).show();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -93,7 +91,6 @@ public class MyService extends Service {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try {
-                Toast.makeText(getApplicationContext(),results,Toast.LENGTH_LONG).show();
                 JSONObject jsonObject =new JSONObject(results);
             JSONArray songs= jsonObject.getJSONObject("songs").getJSONArray("albums");
 
@@ -107,7 +104,6 @@ public class MyService extends Service {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
         }
 
@@ -161,10 +157,8 @@ public class MyService extends Service {
             super.onPostExecute(s);
             try {
                 count++;
-                Toast.makeText(getApplicationContext(),results,Toast.LENGTH_LONG).show();
                 JSONObject jsonObject =new JSONObject(results);
                downloadlink=jsonObject.getJSONArray("playlist").getJSONObject(0).getString("url");
-                Toast.makeText(getApplicationContext(),downloadlink,Toast.LENGTH_LONG).show();
 
                 DownloadManager mManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 DownloadManager.Request mRqRequest = new DownloadManager.Request(
